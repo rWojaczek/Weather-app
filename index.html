@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aplikacja Pogodowa</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script  defer src="script.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="logoDiv">
+        <span class="logo">POGODA</span>
+        <img src="morning.png
+          " alt="" srcset="">
+      </div>
+      
+      <input placeholder="wyszukaj miasto lub kod pocztowy " type="search" class="searchCity" />
+      <button class="searchBtn">Wyszukaj 🔎</button>
+    </div>
+    <div class="box">
+       
+      <div class="top">
+        <div class="general">
+          <span class="city topTitle"> </span>
+          <span class="acuTemp temp"><span></span></span>
+          <span class="description"></span>
+          <span class="dayMaxTemp"></span>
+          <span class="nightMaxTemp"> </span>
+        </div>
+        <div class="airQuality">
+          <span class="topTitle">Zanieczyszczenia</span>
+          <span class="airQualityValue"></span>
+          <span class="pmTwo"></span>
+          <span class="pmTen"></span>
+        </div>
+        <!-- <div class="videoDiv">
+         
+            <video autoplay muted loop src="mountains_-_59291 (1080p).mp4"></video>
+          
+        </div> -->
+      </div>
+      <div class="loading"></div>
+      <div class="details">
+        <div class="detailsTop">
+          <span>Aktualne warunki pogodowe</span>
+          <div class="sunMove">
+            <span class="sunRise"> </span><i class="bi bi-sunrise"></i>
+            <span class="sunDown"> </span><i class="bi bi-sunset"></i>
+          </div>
+        </div>
+        <ul class="detailsList">
+          <li class="maxMin">
+            <span><i class="bi bi-thermometer-half"> </i>Odczuwalna</span>
+            <span class="maxMinTemp"></span>
+          </li>
+          <li class="humidity">
+            <span><i class="bi bi-droplet-half"></i>Wilgotność</span>
+            <div>
+              <span class="humidityValue"> </span>
+              <span>%</span>
+            </div>
+          </li>
+          <li class="pressure">
+            <span><i class="bi bi-arrows-collapse"></i>Ciśnienie</span>
+            <div>
+              <span class="pressureValue"></span>
+              <span> hPa</span>
+            </div>
+          </li>
+          <li class="wind">
+            <span><i class="bi bi-wind"></i>Wiatr</span>
+            <div>
+              <span class="windValue"></span>
+              <span>km/h</span>
+            </div>
+          </li>
+          <li class="punkRosy">
+            <span><i class="bi bi-droplet"></i> Punkt rosy</span>
+            <div>
+              <span class="dewValue"></span>
+              <span>°</span>
+            </div>
+          </li>
+          <li class="UV">
+            <span><i class="bi bi-thermometer-sun"></i>Indeks UV</span>
+            <span class="uvValue"></span>
+          </li>
+          <li class="Moon">
+            <span><i class="bi bi-moon"></i>Faza księżyca</span>
+            <span class="moonValue"></span>
+          </li>
+          <li class="Visibility">
+            <span><i class="bi bi-binoculars"></i>Widoczność</span>
+            <div>
+              <span class="visibleValue"></span>
+              <span>km</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="wheaterByHour">
+        <!-- <div class="hourActuall">
+          <ul>
+            <li class="first">Teraz</li>
+            <li class="temp">21 ℃</li>
+            <li><i class="bi bi-brightness-high"></i></li>
+            <li>0 %</li>
+          </ul>
+        </div>
+        <div class="secondhour">
+          <ul>
+            <li class="first">11:00</li>
+            <li class="temp">23 ℃</li>
+            <li><i class="bi bi-brightness-high"></i></li>
+            <li>3 %</li>
+          </ul>
+        </div>
+        <div class="thirdhour">
+          <ul>
+            <li class="first">12:00</li>
+            <li class="temp">25 ℃</li>
+            <li><i class="bi bi-brightness-high"></i></li>
+            <li>2 %</li>
+          </ul>
+        </div>
+        <div class="fourthhour">
+          <ul>
+            <li class="first">13:00</li>
+            <li class="temp">27 ℃</li>
+            <li><i class="bi bi-brightness-high"></i></li>
+            <li>5 %</li>
+          </ul>
+        </div>-->
+      </div> 
+        <div class="wheaterByDay">
+          
+          <!-- <div class="dayActuall">
+          <ul>
+            <li class="first">Dziś</li>
+            <li class="temp">27 ℃</li>
+            <li>13 ℃</li>
+            <li><i class="bi bi-brightness-high"></i></li>
+            <li>0 %</li>
+          </ul>
+        </div>
+        <div class="secondday">
+          <ul>
+            <li class="first">Wtorek</li>
+            <li class="temp">25 ℃</li>
+            <li>16 ℃</li>
+            <li><i class="bi bi-brightness-high"></i></li>
+            <li>3 %</li>
+          </ul>
+        </div>
+        <div class="thirdday">
+          <ul>
+            <li class="first">Środa</li>
+            <li class="temp">25 ℃</li>
+            <li>10 ℃</li>
+            <li><i class="bi bi-brightness-high"></i></li>
+            <li>2 %</li>
+          </ul>
+        </div>
+        <div class="fourthday">
+          <ul>
+            <li class="first">Czwartek</li>
+            <li class="temp">30 ℃</li>
+            <li>12 ℃</li>
+            <li><i class="bi bi-brightness-high"></i></li>
+            <li>5 %</li>
+          </ul> -->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
