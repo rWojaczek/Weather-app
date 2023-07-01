@@ -153,25 +153,22 @@ const renderDayCards = function (data) {
 };
 
 const renderHourCards = function (data) {
-  let dateTime = Number(data.currentConditions.datetime.slice(0, 2));
-  let localHour;
-  localHour = dateTime + 1;
+  const utcTime = new Date().getHours() - 2;
+  const currentCityTime = utcTime + data.tzoffset;
+  let timeToDsipaly = currentCityTime + 1;
+  let initial = 0;
 
   for (let i = 0; i < 4; i++) {
-    dateTime += i;
-    let firstHour;
-
-    if (dateTime < 23) {
-      firstHour = data.days[0].hours[localHour + i];
+    if (timeToDsipaly < 24) {
+      firstHour = data.days[0].hours[timeToDsipaly];
     } else {
-      localHour = i < 1 ? 0 : i;
-      firstHour = data.days[1].hours[localHour];
-      localHour = 0;
+      firstHour =
+        data.days[1].hours[timeToDsipaly === 24 ? initial : (initial += 1)];
     }
 
     const html = `<div class="hourActuall">
     <ul>
-      <li class="first">${localHour + i}:00</li>
+      <li class="first">${timeToDsipaly > 23 ? initial : timeToDsipaly}:00</li>
       <li class="temp">${firstHour.temp.toFixed(0)} ℃</li>
       <li><img src="icon/${firstHour.icon}.png"></li>
       <li>${firstHour.precipprob.toFixed(0)}%</li>
@@ -179,6 +176,7 @@ const renderHourCards = function (data) {
   </div>`;
 
     weatherByHour.insertAdjacentHTML("beforeend", html);
+    timeToDsipaly++;
   }
 };
 
@@ -235,22 +233,23 @@ const setTime = function (data) {
 };
 
 const fetchSearchCity = function () {
-  clearDivs();
+  if (search.value !== "") {
+    clearDivs();
 
-  fetch(
-    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${search.value}?&unitGroup=metric&lang=pl&key=JVQP5GT7AUS2RDJXXKF75T9V5&elements=%2Bpm2p5,%2Bpm10,%2Baqieur&options=useobs,useremote&events`
-  )
-    .then((response) => {
-      if (!response.ok) throw new Error("Something went wrong, try again");
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      loadData(data);
-      setTime(data);
-      search.value = "";
-    })
-    .catch((err) => alert(err));
+    fetch(
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${search.value}?&unitGroup=metric&lang=pl&key=JVQP5GT7AUS2RDJXXKF75T9V5&elements=%2Bpm2p5,%2Bpm10,%2Baqieur&options=useobs,useremote&events`
+    )
+      .then((response) => {
+        if (!response.ok) throw new Error("Something went wrong, try again");
+        return response.json();
+      })
+      .then((data) => {
+        loadData(data);
+        setTime(data);
+        search.value = "";
+      })
+      .catch((err) => alert(err));
+  }
 };
 
 ///event listeners
@@ -259,3 +258,4 @@ search.addEventListener("keyup", function (event) {
 });
 
 searchBtn.addEventListener("click", fetchSearchCity);
+console.log(search.value === "");
