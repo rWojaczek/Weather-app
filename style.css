@@ -307,3 +307,12 @@ input {
     width: 90%;
   }
 }
+
+.result-item {
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+.result-item:hover {
+  background: #f0f0f0;
+}

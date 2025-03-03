@@ -96,7 +96,7 @@ const settodayValues = function (data, today) {
 
 const loadData = function (data) {
   const offset = data.tzoffset;
-  const today = data.currentConditions;
+  const today = data.days[0];
   settodayValues(data, today);
   moonPhase(today);
   renderDayCards(data, today);
@@ -144,7 +144,7 @@ const renderDayCards = function (data) {
        <li class="temp">${data.days[i].tempmax.toFixed(0)} ℃</li>
        <li>${data.days[i].tempmin.toFixed(0)} ℃</li>
        <li><img src="icon/${data.days[i].icon}.png"></li>
-       <li>${data.days[i].precipprob.toFixed(0)} % </li>
+       <li>${data.days[i].precipprob} % </li>
      </ul>
   </div>`;
 
@@ -159,6 +159,7 @@ const renderHourCards = function (data) {
   let initial = 0;
 
   for (let i = 0; i < 4; i++) {
+    console.log(data.days[0].hours[20]);
     if (timeToDsipaly < 24) {
       firstHour = data.days[0].hours[timeToDsipaly];
     } else {
@@ -244,11 +245,25 @@ const fetchSearchCity = function () {
         return response.json();
       })
       .then((data) => {
-        loadData(data);
-        setTime(data);
-        search.value = "";
+        console.log(data);
+        const searchLat = data.latitude;
+        const searchLong = data.longitude;
+        city.innerHTML = data.resolvedAddress;
+
+        return fetch(
+          `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${searchLat},${searchLong}?&unitGroup=metric&lang=pl&key=JVQP5GT7AUS2RDJXXKF75T9V5&elements=%2Bpm2p5,%2Bpm10,%2Baqieur`
+        );
       })
-      .catch((err) => alert(err));
+      .then((response) => {
+        if (!response.ok) throw new Error("Something went wrong, try again");
+        return response.json();
+      })
+      .then((data) => {
+        loadData(data);
+        // setTime(data);
+
+        search.value = "";
+      });
   }
 };
 
